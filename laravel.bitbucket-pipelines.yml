@@ -1,0 +1,14 @@
+image: php:7.4
+
+pipelines:
+  branches:
+    staging:
+      - step:
+          script:
+            - apt-get update && apt-get install -y python-dev
+            - curl -O https://bootstrap.pypa.io/get-pip.py
+            - python get-pip.py
+            - pip install awsebcli --upgrade
+            - apt install git -y
+            - eb init "Application name" -r ap-southeast-2 -p php
+            - eb deploy "environment name"
