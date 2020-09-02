@@ -1,0 +1,14 @@
+image: node:12.18.3
+
+pipelines:
+  branches:
+    master:
+      - step:
+          script:
+            - apt-get update && apt-get install -y python-dev
+            - curl -O https://bootstrap.pypa.io/get-pip.py
+            - python get-pip.py
+            - pip install awsebcli --upgrade
+            - apt install git -y
+            - eb init "Application name" --region ap-southeast-2 --platform node.js
+            - eb deploy "environment name"
